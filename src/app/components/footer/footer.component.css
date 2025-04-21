@@ -1,0 +1,12 @@
+footer {
+  border: 2px solid rgba(151, 134, 83, 30%);
+  width: 100%;
+}
+
+
+
+/* Media query for screens with a maximum width of 600px */
+@media screen and (max-width: 600px) {
+
+
+}
