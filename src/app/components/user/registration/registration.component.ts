@@ -63,11 +63,25 @@ export class RegistrationComponent {
             this.isSubmitted = false;
             this.toastr.success('New user created', 'registration successful',)
           }
-          // Handle successful response here, e.g., navigate to login or user profile
         },
         error: err => {
-          console.error('Error creating user:', err);
-          // Handle error response here
+          if(err.error.errors){
+            err.error.errors.forEach((x:any) => {
+              switch(x.code) {
+                case "DuplicateUserName":
+                  this.toastr.error('Username is already taken', 'Registration failed');
+                  break;
+
+                case "DuplicateEmail":
+                  this.toastr.error('Email is already registered', 'Registration failed');
+                  break;
+
+                default:
+                  this.toastr.error('Please use contact form to report this issue', 'Registration failed');
+                  break;
+              }
+            })
+          }else console.warn('Error:',err)
         }
       });
 
@@ -85,6 +99,6 @@ export class RegistrationComponent {
   hasDisplayableError(controlName: string): boolean {
     const control = this.form.get(controlName);
     return Boolean(control?.invalid) &&
-      (this.isSubmitted || Boolean(control?.touched));
+      (this.isSubmitted || Boolean(control?.touched) || Boolean(control?.dirty));
   }
 }
