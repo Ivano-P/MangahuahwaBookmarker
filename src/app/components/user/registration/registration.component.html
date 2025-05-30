@@ -4,15 +4,34 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="mb-3 mt-3">
     <input class=" form-control bg-body-secondary" placeholder="Username" formControlName="username">
+    <div class="error-feedback" *ngIf="hasDisplayableError('username')">
+      <div *ngIf="form.controls.username.hasError('required')">Please enter username.</div>
+      <div *ngIf="form.controls.username.hasError('minlength')">Username must have between 4 and 16 characters.</div>
+      <div *ngIf="form.controls.username.hasError('maxlength')">Username must have between 4 and 16 characters.</div>
+    </div>
   </div>
   <div class="mb-3">
     <input class=" form-control bg-body-secondary" placeholder="Email" formControlName="email">
+    <div class="error-feedback" *ngIf="hasDisplayableError('email')">
+      <div *ngIf="form.controls.email.hasError('required')">Please enter an email address.</div>
+      <div *ngIf="form.controls.email.hasError('email')">Please enter a valid email address.</div>
+    </div>
   </div>
+
   <div class="mb-3">
     <input class=" form-control bg-body-secondary" placeholder="Password" formControlName="password">
+    <div class="error-feedback" *ngIf="hasDisplayableError('password')">
+      <div *ngIf="form.controls.password.hasError('required')">Please enter your password.</div>
+      <div *ngIf="form.controls.password.hasError('minlength')">Password must have at the least 6 characters.</div>
+      <div *ngIf="form.controls.password.hasError('pattern')">
+        Password must contain a number and one or more special character(s).</div>
+    </div>
   </div>
+
   <div class="mb-3">
     <input class=" form-control bg-body-secondary" placeholder="Confirm password" formControlName="confirmPassword">
+      <div class="error-feedback" *ngIf="hasDisplayableError('confirmPassword') && form.controls.confirmPassword
+      .hasError('passwordMismatch')">Password doesn't match.</div>
   </div>
   <div class="mb-3 mt-4">
        <button type="submit" class="btn btn-success rounded-3" [disabled]="form.invalid">Register</button>

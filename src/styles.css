@@ -5,3 +5,10 @@ body{
 .black-bg{
   background-color: rgb(19, 19, 19);
 }
+
+.error-feedback{
+  font-size: 0.9rem;
+  color: crimson;
+  margin: 0.3rem !important;
+  margin-top: 0.1rem !important;
+}
