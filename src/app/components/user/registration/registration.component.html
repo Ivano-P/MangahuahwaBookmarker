@@ -4,11 +4,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="mb-3 mt-3">
     <input class=" form-control bg-body-secondary" placeholder="Username" formControlName="username">
-    <div class="error-feedback" *ngIf="hasDisplayableError('username')">
-      <div *ngIf="form.controls.username.hasError('required')">Please enter username.</div>
-      <div *ngIf="form.controls.username.hasError('minlength')">Username must have between 4 and 16 characters.</div>
-      <div *ngIf="form.controls.username.hasError('maxlength')">Username must have between 4 and 16 characters.</div>
-    </div>
+    <div class="error-feedback" *ngIf="hasDisplayableError('username') && form.controls.username
+      .hasError('required')">Please enter username.</div>
   </div>
   <div class="mb-3">
     <input class=" form-control bg-body-secondary" placeholder="Email" formControlName="email">
@@ -19,7 +16,7 @@
   </div>
 
   <div class="mb-3">
-    <input class=" form-control bg-body-secondary" placeholder="Password" formControlName="password">
+    <input type="password" class=" form-control bg-body-secondary" placeholder="Password" formControlName="password">
     <div class="error-feedback" *ngIf="hasDisplayableError('password')">
       <div *ngIf="form.controls.password.hasError('required')">Please enter your password.</div>
       <div *ngIf="form.controls.password.hasError('minlength')">Password must have at the least 6 characters.</div>
@@ -29,11 +26,12 @@
   </div>
 
   <div class="mb-3">
-    <input class=" form-control bg-body-secondary" placeholder="Confirm password" formControlName="confirmPassword">
+    <input type="password" class=" form-control bg-body-secondary" placeholder="Confirm password" formControlName="confirmPassword">
       <div class="error-feedback" *ngIf="hasDisplayableError('confirmPassword') && form.controls.confirmPassword
       .hasError('passwordMismatch')">Password doesn't match.</div>
   </div>
   <div class="mb-3 mt-4">
-       <button type="submit" class="btn btn-success rounded-3" [disabled]="form.invalid">Register</button>
+       <button type="submit" class="btn btn-success w-100 rounded-3" [disabled]="form.invalid" >Register</button>
   </div>
 </form>
+
