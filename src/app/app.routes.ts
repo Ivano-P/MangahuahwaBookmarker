@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {LoginComponent} from "./components/login/login.component";
+import {LoginComponent} from "./components/user/login/login.component";
 import {BookmarkerComponent} from "./components/bookmarker/bookmarker.component";
 import {ContactComponent} from "./components/contact/contact.component";
 import {PresentationComponent} from "./components/presentation/presentation.component";
@@ -12,8 +12,11 @@ export const routes: Routes = [
   {path: 'presentation', component: PresentationComponent,},
   {path: 'contact', component: ContactComponent,},
   {path: 'bookmarker', component: BookmarkerComponent,},
-  {path: 'login', component: LoginComponent,},
   {path: 'discover', component: DiscoverComponent,},
-  {path:'registration', component: RegistrationComponent,},
-  {path:'user', component: UserComponent,},
+  {path:'user', component: UserComponent,
+    children: [
+      {path:'signup', component: RegistrationComponent,},
+      {path: 'login', component: LoginComponent,},
+    ]
+  },
 ];

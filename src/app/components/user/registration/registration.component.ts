@@ -10,11 +10,12 @@ import {
 import {CommonModule} from "@angular/common";
 import {AuthService} from "../../../Services/auth.service";
 import {ToastrService} from "ngx-toastr";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
