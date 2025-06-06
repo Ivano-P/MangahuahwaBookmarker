@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {AuthService} from "../../../Services/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,11 @@ import {NgIf} from "@angular/common";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(public formBuilder: FormBuilder) {}
+  constructor(public formBuilder: FormBuilder,
+              private service: AuthService,
+              private router: Router,
+              private toastr:ToastrService) {}
+
   isSubmitted:boolean = false;
 
   form = this.formBuilder.group({
@@ -22,7 +28,16 @@ export class LoginComponent {
   onSubmit() {
     this.isSubmitted = true;
     if (this.form.valid) {
-      // Handle login logic here, e.g., call an authentication service
+      this.service.signin(this.form.value).subscribe({
+        next:(res:any) => {
+          localStorage.setItem('token', res.token); //this stores the token in localStorage
+          this.router.navigateByUrl('/bookmarker');//Navigate to bookmarker after successful login
+        },
+        error:(err:any) => {
+          if(err.status == 400) this.toastr.error('Invalid email or password', 'Login Error');
+          else console.error('Login failed', err);
+        }
+      })
       console.log('Form Submitted', this.form.value);
     } else {
       console.log('Form is invalid');
